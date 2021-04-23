@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zomato_clone/Screens/HomeScreen.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -24,12 +25,16 @@ class _LoginScreenState extends State<LoginScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Container(
-                height: size.height / 3,
-                width: size.width,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage("assets/log.png"), fit: BoxFit.cover),
+              GestureDetector(
+                onTap: () => Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (_) => HomePage())),
+                child: Container(
+                  height: size.height / 3,
+                  width: size.width,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage("assets/log.png"), fit: BoxFit.cover),
+                  ),
                 ),
               ),
               SizedBox(
