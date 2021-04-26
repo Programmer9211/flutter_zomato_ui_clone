@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class FoodItems {
   String name, imageUrl;
 
