@@ -9,7 +9,7 @@ class _MenuScreenState extends State<MenuScreen> {
   @override
   void initState() {
     super.initState();
-    for (int i = 0; i <= 4; i++) {
+    for (int i = 0; i <= 5; i++) {
       isEnabled.add(false);
     }
   }
@@ -41,10 +41,10 @@ class _MenuScreenState extends State<MenuScreen> {
       context: context,
       position: RelativeRect.fromLTRB(offset.dx, offset.dy, 0, 0),
       items: [
-        PopupMenuItem(child: Text("Pro MemberShip         1")),
-        PopupMenuItem(child: Text("Today's Exclusive Dish 1")),
+        PopupMenuItem(child: Text("Pro Membership         1")),
+        PopupMenuItem(child: Text("Todat's Exclusive Dish 1")),
         PopupMenuItem(child: Text("Recomended             23")),
-        PopupMenuItem(child: Text("Zomato Special Combos  5")),
+        PopupMenuItem(child: Text("Zomato Special Combo   5")),
         PopupMenuItem(child: Text("Our Speciality         4")),
         PopupMenuItem(child: Text("Mini Meals             5")),
       ],
@@ -89,15 +89,19 @@ class _MenuScreenState extends State<MenuScreen> {
               child: header(size),
             ),
             offers(size),
-            SizedBox(
-              height: size.height / 30,
-            ),
             menuHeader(size),
-            menuBarDishes(size, 1, "Today's Exclusive dish", 1),
-            menuBarDishes(size, 23, "Recomended", 2),
-            menuBarDishes(size, 5, "Zomato Special Combos", 3),
-            menuBarDishes(size, 4, "Our Speciality", 4),
-            menuBarDishes(size, 5, "Mini Meals", 5),
+            menuBarDishes(size, 1, "Pro MemberShip ", 0),
+            isEnabled[0] ? menuBarDishesItemBuilder(size, 6, 1) : Container(),
+            menuBarDishes(size, 12, "Today's Exclusive Dish", 1),
+            isEnabled[1] ? menuBarDishesItemBuilder(size, 6, 12) : Container(),
+            menuBarDishes(size, 5, "Zomato Special Combo", 2),
+            isEnabled[2] ? menuBarDishesItemBuilder(size, 6, 5) : Container(),
+            menuBarDishes(size, 4, "Our Speciality", 3),
+            isEnabled[3] ? menuBarDishesItemBuilder(size, 6, 4) : Container(),
+            menuBarDishes(size, 5, "Mini Meals", 4),
+            isEnabled[4] ? menuBarDishesItemBuilder(size, 6, 5) : Container(),
+            menuBarDishes(size, 23, "Recomended", 5),
+            isEnabled[5] ? menuBarDishesItemBuilder(size, 6, 23) : Container(),
           ],
         ),
       ),
@@ -136,133 +140,130 @@ class _MenuScreenState extends State<MenuScreen> {
     );
   }
 
-  Widget menuBarDishesItemBuilder(
-    Size size,
-    int height,
-    int itemcount,
-    String restName,
-    String location,
-    String price,
-    String stars,
-  ) {
+  Widget menuBarDishesItemBuilder(Size size, int height, int itemcount) {
     return Container(
       height: size.height / height,
       width: size.width,
       child: ListView.builder(
-        itemCount: itemcount,
-        itemBuilder: (context, index) {
-          return Container(
-            height: size.height / 6,
-            width: size.width,
-            decoration: BoxDecoration(
+          itemCount: itemcount,
+          itemBuilder: (context, index) {
+            return Container(
+              height: size.height / 6,
+              width: size.width,
+              decoration: BoxDecoration(
                 border: Border.symmetric(
-              horizontal: BorderSide(
-                width: 0.5,
-                color: Colors.grey,
+                  horizontal: BorderSide(
+                    width: 0.5,
+                    color: Colors.grey,
+                  ),
+                ),
               ),
-            )),
-            child: Row(
-              children: [
-                Container(
-                  height: size.height / 3,
-                  width: size.width / 1.5,
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          width: size.width / 1.8,
-                          child: Text(
-                            restName,
-                            style: TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.w500,
+              child: Row(
+                children: [
+                  Container(
+                    height: size.height / 3,
+                    width: size.width / 1.5,
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            width: size.width / 1.8,
+                            child: Text(
+                              "Restaurent Name",
+                              style: TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      Container(
-                        width: size.width / 1.8,
-                        child: Text(
-                          location,
-                          style: TextStyle(
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
+                        Container(
                           width: size.width / 1.8,
                           child: Text(
-                            "Price: $price",
+                            "Restaurent Meal Details",
+                            style: TextStyle(
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          width: size.width / 1.8,
+                          child: Text(
+                            "Price 170",
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
                         ),
-                      ),
-                      Container(
-                        width: size.width / 1.8,
-                        child: Text(
-                          "Rating: $stars",
-                          style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w500,
+                        Container(
+                          width: size.width / 1.8,
+                          child: Text(
+                            "Rating: 4.5",
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                         ),
-                      )
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                Container(
-                  height: size.height / height,
-                  width: size.width / 3,
-                  alignment: Alignment.center,
-                  child: Container(
-                    height: size.height / 19,
-                    width: size.width / 4,
+                  Container(
+                    height: size.height / height,
+                    width: size.width / 3,
                     alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: Colors.red[100],
-                      border: Border.all(
-                        width: 1,
-                        color: Colors.redAccent,
+                    child: Container(
+                      height: size.height / 19,
+                      width: size.width / 4,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Colors.red[100],
+                        border: Border.all(
+                          width: 1,
+                          color: Colors.redAccent,
+                        ),
                       ),
-                    ),
-                    child: Text(
-                      "Add",
-                      style: TextStyle(
-                        color: Colors.red,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
+                      child: Text(
+                        "Add",
+                        style: TextStyle(
+                          color: Colors.red,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          );
-        },
-      ),
+                ],
+              ),
+            );
+          }),
     );
   }
 
   Widget menuBarDishes(Size size, int items, String title, int index) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        if (isEnabled[index]) {
+          setState(() {
+            isEnabled[index] = false;
+          });
+        } else {
+          setState(() {
+            isEnabled[index] = true;
+          });
+        }
+      },
       child: Container(
         height: size.height / 10,
         width: size.width,
         decoration: BoxDecoration(
-            border: Border.symmetric(
-          horizontal: BorderSide(
-            color: Colors.grey,
-            width: 0.5,
+          border: Border.symmetric(
+            horizontal: BorderSide(color: Colors.grey, width: 0.5),
           ),
-        )),
+        ),
         child: Row(
           children: [
             Container(
@@ -282,15 +283,14 @@ class _MenuScreenState extends State<MenuScreen> {
                     ),
                   ),
                   Container(
-                    width: size.width / 1.3,
-                    child: Text(
-                      "$items item",
-                      style: TextStyle(
-                        color: Colors.grey[800],
-                        fontSize: 16,
-                      ),
-                    ),
-                  )
+                      width: size.width / 1.3,
+                      child: Text(
+                        "$items items",
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 16,
+                        ),
+                      ))
                 ],
               ),
             ),
@@ -299,7 +299,7 @@ class _MenuScreenState extends State<MenuScreen> {
               width: size.width / 8,
               alignment: Alignment.centerRight,
               child: Icon(Icons.arrow_downward),
-            ),
+            )
           ],
         ),
       ),
@@ -307,38 +307,35 @@ class _MenuScreenState extends State<MenuScreen> {
   }
 
   Widget menuHeader(Size size) {
-    return GestureDetector(
-      onTap: () {},
-      child: Container(
-        height: size.height / 10,
-        width: size.width,
-        decoration: BoxDecoration(
-          color: Colors.grey[200],
-          border: Border.all(
-            width: 0.5,
-            color: Colors.grey[800],
+    return Container(
+      height: size.height / 10,
+      width: size.width,
+      decoration: BoxDecoration(
+        color: Colors.grey[200],
+        border: Border.all(
+          width: 0.5,
+          color: Colors.grey[800],
+        ),
+      ),
+      child: Row(
+        children: [
+          SizedBox(
+            width: size.width / 17,
           ),
-        ),
-        child: Row(
-          children: [
-            SizedBox(
-              width: size.width / 17,
+          Text(
+            "Menu",
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.w500,
             ),
-            Text(
-              "Menu",
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-            SizedBox(
-              width: size.width / 7,
-            ),
-            menuItems(size, "Egg"),
-            menuItems(size, "Veg"),
-            menuItems(size, "Search"),
-          ],
-        ),
+          ),
+          SizedBox(
+            width: size.width / 7,
+          ),
+          menuItems(size, "Egg"),
+          menuItems(size, "Veg"),
+          menuItems(size, "Search"),
+        ],
       ),
     );
   }
@@ -353,7 +350,10 @@ class _MenuScreenState extends State<MenuScreen> {
         decoration: BoxDecoration(
           color: Colors.grey[100],
           borderRadius: BorderRadius.circular(20),
-          border: Border.all(width: 1, color: Colors.grey),
+          border: Border.all(
+            width: 1,
+            color: Colors.grey,
+          ),
         ),
         child: Text(
           text,
